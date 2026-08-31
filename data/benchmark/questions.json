@@ -1,0 +1,242 @@
+[
+  {
+    "id": "ar_fafsa_001",
+    "question": "ما المبلغ الذي يجب إدخاله في خانة نفقة الطفل السنوية المستلمة؟",
+    "language": "ar",
+    "answerable": true,
+    "relevant": [
+      {
+        "document_id": "arabic__fafsa_arabic_2026_27",
+        "page": 33
+      }
+    ]
+  },
+  {
+    "id": "ar_fafsa_002",
+    "question": "إذا كان الطالب متزوجًا أو متزوجًا مرة أخرى، أصول مَن يجب تضمينها في إجمالي الأصول الحالية؟",
+    "language": "ar",
+    "answerable": true,
+    "relevant": [
+      {
+        "document_id": "arabic__fafsa_arabic_2026_27",
+        "page": 33
+      }
+    ]
+  },
+  {
+    "id": "ar_finance_001",
+    "question": "متى يُعد العميل مفرطًا في المديونية بحسب الدليل؟",
+    "language": "ar",
+    "answerable": true,
+    "relevant": [
+      {
+        "document_id": "arabic__jordan_financial_consumer_guide",
+        "page": 4
+      }
+    ]
+  },
+  {
+    "id": "ar_finance_002",
+    "question": "ما المقصود بالقنوات الإلكترونية في الخدمات المالية؟",
+    "language": "ar",
+    "answerable": true,
+    "relevant": [
+      {
+        "document_id": "arabic__jordan_financial_consumer_guide",
+        "page": 4
+      }
+    ]
+  },
+  {
+    "id": "ar_health_001",
+    "question": "لأي غرض تُصدر الشهادة الصحية للوافد؟",
+    "language": "ar",
+    "answerable": true,
+    "relevant": [
+      {
+        "document_id": "arabic__jordan_health_services",
+        "page": 53
+      }
+    ]
+  },
+  {
+    "id": "ar_health_002",
+    "question": "ما فئات المتعاملين المستفيدة من خدمة إصدار الشهادة الصحية للوافد؟",
+    "language": "ar",
+    "answerable": true,
+    "relevant": [
+      {
+        "document_id": "arabic__jordan_health_services",
+        "page": 53
+      }
+    ]
+  },
+  {
+    "id": "ar_vehicle_001",
+    "question": "كم تستغرق خدمة تجديد ترخيص مركبات التأجير السياحي؟",
+    "language": "ar",
+    "answerable": true,
+    "relevant": [
+      {
+        "document_id": "arabic__jordan_vehicle_licensing_services",
+        "page": 7
+      }
+    ]
+  },
+  {
+    "id": "ar_vehicle_002",
+    "question": "هل تجديد ترخيص مركبات التأجير السياحي مصنف كخدمة فورية؟",
+    "language": "ar",
+    "answerable": true,
+    "relevant": [
+      {
+        "document_id": "arabic__jordan_vehicle_licensing_services",
+        "page": 7
+      }
+    ]
+  },
+  {
+    "id": "en_california_001",
+    "question": "How far before a left turn should a driver start signaling?",
+    "language": "en",
+    "answerable": true,
+    "relevant": [
+      {
+        "document_id": "english__california_driver_handbook",
+        "page": 16
+      }
+    ]
+  },
+  {
+    "id": "en_california_002",
+    "question": "How close to a turn should a driver enter a two-way center left-turn lane?",
+    "language": "en",
+    "answerable": true,
+    "relevant": [
+      {
+        "document_id": "english__california_driver_handbook",
+        "page": 16
+      }
+    ]
+  },
+  {
+    "id": "en_cfpb_001",
+    "question": "How much can an overdraft fee cost for a single transaction?",
+    "language": "en",
+    "answerable": true,
+    "relevant": [
+      {
+        "document_id": "english__cfpb_checking_account_guide",
+        "page": 2
+      }
+    ]
+  },
+  {
+    "id": "en_cfpb_002",
+    "question": "How often should you review your bank or credit union account statements?",
+    "language": "en",
+    "answerable": true,
+    "relevant": [
+      {
+        "document_id": "english__cfpb_checking_account_guide",
+        "page": 2
+      }
+    ]
+  },
+  {
+    "id": "en_epa_001",
+    "question": "What certification should a contractor have when renovating a pre-1978 home with lead-based paint?",
+    "language": "en",
+    "answerable": true,
+    "relevant": [
+      {
+        "document_id": "english__epa_lead_safety_2026",
+        "page": 7
+      }
+    ]
+  },
+  {
+    "id": "en_epa_002",
+    "question": "In what year did the federal government ban consumer uses of lead-containing paint?",
+    "language": "en",
+    "answerable": true,
+    "relevant": [
+      {
+        "document_id": "english__epa_lead_safety_2026",
+        "page": 7
+      }
+    ]
+  },
+  {
+    "id": "en_fafsa_001",
+    "question": "What should a parent enter in the Social Security number field if they do not have an SSN?",
+    "language": "en",
+    "answerable": true,
+    "relevant": [
+      {
+        "document_id": "english__fafsa_english_2026_27",
+        "page": 15
+      }
+    ]
+  },
+  {
+    "id": "en_fafsa_002",
+    "question": "What contact information does the FAFSA form request from a parent?",
+    "language": "en",
+    "answerable": true,
+    "relevant": [
+      {
+        "document_id": "english__fafsa_english_2026_27",
+        "page": 15
+      }
+    ]
+  },
+  {
+    "id": "en_flsa_001",
+    "question": "How long after a child's birth are most nursing employees entitled to reasonable break time to pump breast milk?",
+    "language": "en",
+    "answerable": true,
+    "relevant": [
+      {
+        "document_id": "english__us_flsa_reference_guide",
+        "page": 17
+      }
+    ]
+  },
+  {
+    "id": "en_flsa_002",
+    "question": "Can an employer require a nursing employee to use a bathroom as the place for pumping breast milk?",
+    "language": "en",
+    "answerable": true,
+    "relevant": [
+      {
+        "document_id": "english__us_flsa_reference_guide",
+        "page": 17
+      }
+    ]
+  },
+  {
+    "id": "en_uscis_001",
+    "question": "What options are available for someone who needs immigration legal help but cannot afford a lawyer?",
+    "language": "en",
+    "answerable": true,
+    "relevant": [
+      {
+        "document_id": "english__uscis_new_immigrants_guide",
+        "page": 28
+      }
+    ]
+  },
+  {
+    "id": "en_uscis_002",
+    "question": "Where can someone find free legal service providers for immigration proceedings?",
+    "language": "en",
+    "answerable": true,
+    "relevant": [
+      {
+        "document_id": "english__uscis_new_immigrants_guide",
+        "page": 28
+      }
+    ]
+  }
+]
