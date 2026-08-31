@@ -7,7 +7,6 @@ from sentence_transformers import SentenceTransformer
 
 from askaway.models import Chunk
 
-
 DEFAULT_MODEL = "intfloat/multilingual-e5-base"
 
 
