@@ -79,3 +79,31 @@ The correct document page was retrieved, but it was ranked lower than other page
 The retrieved results contained several references to health certificates, laboratory procedures, and related services. This caused ranking confusion between general procedural pages and the page containing the actual purpose of issuing the certificate.
 
 This suggests that a reranking stage could improve final result ordering by scoring retrieved passages against the specific query meaning.
+
+
+
+---
+
+# Hybrid Retrieval + Reranking
+
+A cross-encoder reranker was added after hybrid retrieval.
+
+Pipeline:
+
+Hybrid retrieval
+(top 10 candidates)
+
+↓
+
+Cross-encoder reranking
+
+↓
+
+Final top 5 results
+
+| Method | Recall@1 | Recall@3 | Recall@5 | MRR |
+|---|---:|---:|---:|---:|
+| Hybrid | 0.700 | 0.950 | 0.950 | 0.808 |
+| Hybrid + Reranker | 0.850 | 1.000 | 1.000 | 0.925 |
+
+The reranker improved the ordering of retrieved passages, increasing the number of questions where the correct passage appeared as the first result.
