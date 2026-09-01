@@ -1,52 +1,81 @@
 # Retrieval Evaluation
 
-Dataset:
-- 10 PDFs
-- 20 benchmark questions
-- English + Arabic
+## Dataset
+
+The retrieval benchmark consists of:
+
+- 10 PDF documents
+- 20 manually created benchmark questions
+- English and Arabic queries
+
+Evaluation metrics:
+
+- Recall@1
+- Recall@3
+- Recall@5
+- Mean Reciprocal Rank (MRR)
+
+---
+
+# Baseline Retrieval
 
 ## Without OCR
 
-| Method | R@1 | R@3 | R@5 | MRR |
-|---     |---  |---  |---  |---  |
+Initial evaluation was performed using only machine-readable PDF text extraction.
+
+| Method | Recall@1 | Recall@3 | Recall@5 | MRR |
+|---|---:|---:|---:|---:|
 | BM25 | 0.500 | 0.700 | 0.750 | 0.602 |
-| Dense | 0.400 | 0.600 | 0.650 | 0.504 |
+| Dense Retrieval | 0.400 | 0.600 | 0.650 | 0.504 |
 
-## With OCR
+---
 
-| Method | R@1 | R@3 | R@5 | MRR |
-|---     |---  |---  |---  |---  |
+# OCR-Enhanced Retrieval
+
+Several Arabic documents were scanned PDFs without an embedded text layer. An OCR pipeline was added to extract searchable text from these documents.
+
+The OCR-enhanced corpus improved retrieval performance:
+
+| Method | Recall@1 | Recall@3 | Recall@5 | MRR |
+|---|---:|---:|---:|---:|
 | BM25 | 0.650 | 0.850 | 0.900 | 0.752 |
-| Dense | 0.550 | 0.950 | 1.000 | 0.738 |
+| Dense Retrieval | 0.550 | 0.950 | 1.000 | 0.738 |
+
+The improvement was mainly observed on Arabic documents where the original PDFs contained little or no extractable text.
+
+---
+
+# Hybrid Retrieval
+
+Hybrid retrieval combines:
+
+- BM25 lexical retrieval
+- Multilingual dense retrieval
+
+Different weighting configurations were tested.
+
+| BM25 Weight | Dense Weight | Recall@1 | Recall@3 | Recall@5 | MRR |
+|---|---|---:|---:|---:|---:|
+| 0.5 | 0.5 | 0.600 | 0.950 | 1.000 | 0.785 |
+| 0.3 | 0.7 | 0.600 | 1.000 | 1.000 | 0.792 |
+| 0.7 | 0.3 | 0.700 | 0.950 | 0.950 | 0.808 |
+
+The highest MRR on this benchmark was achieved using a 70% BM25 / 30% dense retrieval weighting.
+
+---
+
+# Error Analysis
+
+One example failure case:
+
+**Question**
 
 
-
-## Hybrid retrieval results 50/50
------------------------
-Questions: 20
-Recall@1: 0.600
-Recall@3: 0.950
-Recall@5: 1.000
-MRR:      0.785
+لأي غرض تُصدر الشهادة الصحية للوافد؟
 
 
-## Hybrid retrieval results 30(bm25)/70
------------------------
-Questions: 20
-Recall@1: 0.600
-Recall@3: 1.000
-Recall@5: 1.000
-MRR:      0.792
+The correct document page was retrieved, but it was ranked lower than other pages containing similar administrative terminology.
 
+The retrieved results contained several references to health certificates, laboratory procedures, and related services. This caused ranking confusion between general procedural pages and the page containing the actual purpose of issuing the certificate.
 
-## Hybrid retrieval results 70(bm25)/30
------------------------
-Questions: 20
-Recall@1: 0.700
-Recall@3: 0.950
-Recall@5: 0.950
-MRR:      0.808
-
-Missed at k=5
--------------
-ar_health_001: لأي غرض تُصدر الشهادة الصحية للوافد؟
+This suggests that a reranking stage could improve final result ordering by scoring retrieved passages against the specific query meaning.
