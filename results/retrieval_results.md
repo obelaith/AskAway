@@ -107,3 +107,26 @@ Final top 5 results
 | Hybrid + Reranker | 0.850 | 1.000 | 1.000 | 0.925 |
 
 The reranker improved the ordering of retrieved passages, increasing the number of questions where the correct passage appeared as the first result.
+
+
+# Hybrid Retrieval + Reranking
+
+A cross-encoder reranker was added after hybrid retrieval.
+
+Pipeline:
+
+Hybrid retrieval
+(top 10 candidates)
+
+↓
+
+Cross-encoder reranking
+
+↓
+
+Final top 5 results
+
+| Method | Recall@1 | Recall@3 | Recall@5 | MRR |
+|---|---:|---:|---:|---:|
+| Hybrid | 0.700 | 0.950 | 0.950 | 0.808 |
+| Hybrid + Reranker | 0.850 | 1.000 | 1.000 | 0.925 |

@@ -28,3 +28,6 @@ data/ocr_samples/
 pyproject.toml
 arabic_pages.txt
 src/New folder/
+
+
+.env

@@ -1,6 +1,8 @@
 import argparse
 from pathlib import Path
 
+from askaway.generation.openai_llm import OpenAILLM
+from askaway.rag import RAGPipeline
 from askaway.retrieval.bm25 import (
     BM25Retriever,
     load_chunks,
@@ -15,33 +17,26 @@ from askaway.retrieval.reranker import Reranker
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Search the document collection with hybrid retrieval and reranking."
+        description="Answer questions using AskAway RAG."
     )
 
     parser.add_argument(
         "corpus",
         type=Path,
-        help="Path to the processed corpus.",
+        help="Path to processed chunks.",
     )
 
     parser.add_argument(
-        "query",
+        "question",
         type=str,
-        help="The question or search query.",
-    )
-
-    parser.add_argument(
-        "--top-k",
-        type=int,
-        default=5,
-        help="Number of results to show.",
+        help="Question to answer.",
     )
 
     args = parser.parse_args()
 
     chunks = load_chunks(args.corpus)
 
-    print("Loading retrievers...")
+    print("Loading retrieval pipeline...")
 
     bm25 = BM25Retriever(chunks)
 
@@ -61,31 +56,30 @@ def main() -> None:
         candidate_k=10,
     )
 
-    results = retriever.search(
-        args.query,
-        k=args.top_k,
+    llm = OpenAILLM()
+
+    rag = RAGPipeline(
+        retriever,
+        llm,
+    )
+
+    result = rag.answer(
+        args.question,
     )
 
     print()
-    print("Search results")
-    print("--------------")
+    print("Answer")
+    print("------")
+    print(result["answer"])
 
-    for result in results:
-        print()
+    print()
+    print("Sources")
+    print("-------")
 
+    for source in result["sources"]:
         print(
-            f"[{result['rank']}] "
-            f"{result['filename']} — "
-            f"page {result['page_number']}"
-        )
-
-        print(
-            f"Rerank score: "
-            f"{result['rerank_score']:.4f}"
-        )
-
-        print(
-            result["text"][:700]
+            f"- {source['filename']} "
+            f"(page {source['page_number']})"
         )
 
 
