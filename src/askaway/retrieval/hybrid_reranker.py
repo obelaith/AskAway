@@ -1,3 +1,4 @@
+from askaway.config import load_config
 from askaway.retrieval.hybrid import HybridRetriever
 from askaway.retrieval.reranker import Reranker
 
@@ -7,17 +8,26 @@ class HybridRerankerRetriever:
         self,
         hybrid_retriever: HybridRetriever,
         reranker: Reranker,
-        candidate_k: int = 10,
+        candidate_k: int | None = None,
     ):
         self.hybrid_retriever = hybrid_retriever
         self.reranker = reranker
+
+        if candidate_k is None:
+            config = load_config()
+            candidate_k = config["retrieval"]["candidate_k"]
+
         self.candidate_k = candidate_k
 
     def search(
         self,
         query: str,
-        k: int = 5,
+        k: int | None = None,
     ) -> list[dict]:
+
+        if k is None:
+            config = load_config()
+            k = config["retrieval"]["top_k"]
 
         candidates = self.hybrid_retriever.search(
             query,

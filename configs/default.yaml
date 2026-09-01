@@ -1,0 +1,12 @@
+retrieval:
+  bm25_weight: 0.7
+  top_k: 5
+  candidate_k: 10
+  source_threshold: 0.6
+
+models:
+  embedding: intfloat/multilingual-e5-base
+  reranker: BAAI/bge-reranker-v2-m3
+
+generation:
+  model: gpt-4.1-mini

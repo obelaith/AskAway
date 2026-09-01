@@ -1,13 +1,20 @@
 from sentence_transformers import CrossEncoder
 
-DEFAULT_RERANKER = "BAAI/bge-reranker-v2-m3"
+from askaway.config import load_config
 
+DEFAULT_MODEL = None
 
 class Reranker:
     def __init__(
         self,
-        model_name: str = DEFAULT_RERANKER,
+        model_name: str | None = None,
     ):
+
+        if model_name is None:
+            config = load_config()
+            model_name = config["models"]["reranker"]
+
+        self.model_name = model_name
         self.model = CrossEncoder(model_name)
 
     def rerank(

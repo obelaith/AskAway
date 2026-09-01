@@ -1,3 +1,4 @@
+from askaway.config import load_config
 from askaway.generation.llm import BaseLLM
 from askaway.retrieval.hybrid_reranker import (
     HybridRerankerRetriever,
@@ -12,6 +13,14 @@ class RAGPipeline:
     ):
         self.retriever = retriever
         self.llm = llm
+
+        config = load_config()
+
+        self.top_k = config["retrieval"]["top_k"]
+        self.source_threshold = config["retrieval"].get(
+            "source_threshold",
+            0.6,
+        )
 
     def build_prompt(
         self,
@@ -54,7 +63,7 @@ Answer:
 
         chunks = self.retriever.search(
             question,
-            k=5,
+            k=self.top_k,
         )
 
         prompt = self.build_prompt(
@@ -79,7 +88,7 @@ Answer:
             if chunk.get(
                 "rerank_score",
                 0,
-            ) >= 0.6
+            ) >= self.source_threshold
         ]
 
         return {

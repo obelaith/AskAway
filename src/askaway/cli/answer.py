@@ -1,6 +1,7 @@
 import argparse
 from pathlib import Path
 
+from askaway.config import load_config
 from askaway.generation.openai_llm import OpenAILLM
 from askaway.rag import RAGPipeline
 from askaway.retrieval.bm25 import (
@@ -34,6 +35,8 @@ def main() -> None:
 
     args = parser.parse_args()
 
+    config = load_config()
+
     chunks = load_chunks(args.corpus)
 
     print("Loading retrieval pipeline...")
@@ -45,7 +48,7 @@ def main() -> None:
     hybrid = HybridRetriever(
         bm25,
         dense,
-        bm25_weight=0.7,
+        bm25_weight=config["retrieval"]["bm25_weight"],
     )
 
     reranker = Reranker()
@@ -53,7 +56,7 @@ def main() -> None:
     retriever = HybridRerankerRetriever(
         hybrid,
         reranker,
-        candidate_k=10,
+        candidate_k=config["retrieval"]["candidate_k"],
     )
 
     llm = OpenAILLM()

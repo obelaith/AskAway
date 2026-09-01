@@ -5,10 +5,10 @@ from pathlib import Path
 import numpy as np
 from sentence_transformers import SentenceTransformer
 
+from askaway.config import load_config
 from askaway.models import Chunk
 
-DEFAULT_MODEL = "intfloat/multilingual-e5-base"
-
+DEFAULT_MODEL = None
 
 def corpus_fingerprint(chunks: list[Chunk]) -> str:
     hasher = hashlib.sha256()
@@ -24,7 +24,7 @@ class DenseRetriever:
     def __init__(
         self,
         chunks: list[Chunk],
-        model_name: str = DEFAULT_MODEL,
+        model_name: str | None = None,
         cache_dir: Path = Path("data/processed/dense"),
     ):
         if not chunks:
@@ -33,6 +33,11 @@ class DenseRetriever:
             )
 
         self.chunks = chunks
+
+        if model_name is None:
+            config = load_config()
+            model_name = config["models"]["embedding"]
+
         self.model_name = model_name
         self.model = SentenceTransformer(model_name)
 
