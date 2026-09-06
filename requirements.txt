@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+python-dotenv
+openai
+pyyaml
+pytest
+numpy
+scikit-learn
+sentence-transformers
+rank-bm25
