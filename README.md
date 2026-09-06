@@ -2,13 +2,13 @@
 
 AskAway is a multilingual Retrieval-Augmented Generation (RAG) system for answering questions over PDF documents.
 
-The project focuses on building a complete document question-answering pipeline, including document ingestion, OCR processing, retrieval, reranking, and LLM-based answer generation.
+The project focuses on building a complete document question-answering pipeline, including document ingestion, OCR processing, retrieval, reranking, LLM-based answer generation, and API deployment.
 
 The system supports both English and Arabic documents, including scanned PDFs that require OCR before they can be searched.
 
 ---
 
-## Overview
+# Overview
 
 Traditional keyword search can struggle when users ask questions using different wording than the original document.
 
@@ -24,7 +24,7 @@ The goal is to retrieve relevant document passages first, then generate answers 
 
 ---
 
-## System Pipeline
+# System Pipeline
 
 ```text
 PDF Documents
@@ -44,7 +44,7 @@ Retrieval
 Cross Encoder Reranking
       |
       v
-LLM Answer Generation
+LLM Generation
       |
       v
 Answer + Sources
@@ -52,7 +52,7 @@ Answer + Sources
 
 ---
 
-## Features
+# Features
 
 - Multilingual document question answering
 - Arabic OCR support for scanned PDFs
@@ -64,6 +64,8 @@ Answer + Sources
 - Cross-encoder reranking
 - Source-aware answers
 - Configurable retrieval and model settings
+- REST API interface
+- Docker-based deployment
 
 ---
 
@@ -108,6 +110,87 @@ The reranker improves the ordering of retrieved passages before sending context 
 
 ---
 
+# API Service
+
+AskAway includes a FastAPI service that exposes the RAG pipeline through an HTTP interface.
+
+The API separates the retrieval and generation logic from the user interface layer, allowing the system to be accessed by external applications.
+
+Example workflow:
+
+```text
+Client Application
+        |
+        v
+FastAPI Endpoint
+        |
+        v
+RAG Pipeline
+        |
+        |
++-------+-------+
+|               |
+Retrieval    LLM Generation
+|
+v
+Answer + Sources
+```
+
+Example request:
+
+```json
+{
+  "question": "What documents are required for this service?"
+}
+```
+
+Example response:
+
+```json
+{
+  "answer": "The required documents are...",
+  "sources": [
+    {
+      "filename": "document.pdf",
+      "page_number": 12
+    }
+  ]
+}
+```
+
+---
+
+# Docker Deployment
+
+AskAway can be containerized using Docker to provide a reproducible environment.
+
+The Docker image includes:
+
+- Python environment
+- Project dependencies
+- Retrieval components
+- API service configuration
+
+Build the image:
+
+```bash
+docker build -t askaway .
+```
+
+Run the container:
+
+```bash
+docker run -p 8000:8000 askaway
+```
+
+The API becomes available at:
+
+```text
+http://localhost:8000
+```
+
+---
+
 # Evaluation
 
 ## Dataset
@@ -127,9 +210,9 @@ Metrics:
 
 ---
 
-## Retrieval Results
+# Retrieval Results
 
-### Initial Retrieval
+## Initial Retrieval
 
 Evaluation using extracted PDF text:
 
@@ -162,8 +245,6 @@ Different BM25/dense weighting configurations were tested.
 | 0.5 | 0.5 | 0.600 | 0.950 | 1.000 | 0.785 |
 | 0.3 | 0.7 | 0.600 | 1.000 | 1.000 | 0.792 |
 | 0.7 | 0.3 | 0.700 | 0.950 | 0.950 | 0.808 |
-
-The best hybrid configuration used a higher BM25 contribution.
 
 ---
 
@@ -208,6 +289,9 @@ AskAway/
 ├── src/
 │   └── askaway/
 │       │
+│       ├── api/
+│       │   └── app.py
+│       │
 │       ├── ingestion/
 │       │   ├── parser.py
 │       │   ├── ocr.py
@@ -227,10 +311,8 @@ AskAway/
 │       └── rag.py
 │
 ├── tests/
-│
 ├── results/
-│   └── retrieval_results.md
-│
+├── Dockerfile
 └── pyproject.toml
 ```
 
@@ -283,6 +365,12 @@ Generate an answer:
 python -m askaway.cli.answer <corpus> "<question>"
 ```
 
+Run API:
+
+```bash
+uvicorn askaway.api.app:app --host 0.0.0.0 --port 8000
+```
+
 ---
 
 # Future Improvements
@@ -290,6 +378,9 @@ python -m askaway.cli.answer <corpus> "<question>"
 - Expand evaluation benchmark to a larger multilingual document collection
 - Add more OCR-heavy Arabic documents
 - Add latency measurements
-- Add a web interface for document upload and question answering
+- Add document upload endpoint
+- Add web interface
 - Support additional LLM backends
 
+
+This project is for educational and research purposes.
